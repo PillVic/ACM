@@ -1,37 +1,56 @@
 #include<iostream>
+#include<stdlib.h>
 
 using namespace std;
 
-int Climb(int stage[], int N);
+void Cal(int length);
 int main() {
-	int N;
-	while (cin >> N) {
-		if (N == 0) {
-			return 0;
+	int Line;
+	int length;
+	cin >> Line;
+	for (int step = 0; step < Line; step++) {
+		cout << "Case " << step + 1 << ":" << endl;
+		int length;
+		cin >> length;
+		Cal(length);
+		if (step != Line - 1) {
+			cout << endl;
 		}
-		int *stage;
-		stage = new int[N];
-		for (int index = 0; index < N; index++) {
-			cin >> stage[index];
-		}
-		cout << Climb(stage, N) << endl;;
 	}
 	return 0;
 }
-int Climb(int stage[], int N) {
-	int time = 0;
-	int position = 0;
-	int up = 6; int down = 4; int wait = 5;
-	for (int index = 0; index < N; index++) {
-		if (position > stage[index]) {
-			time += (position - stage[index])*down;
-			position = stage[index];
+void Cal(int length) {
+	double ThisSum;
+	cin >> ThisSum;
+	double MaxSum = ThisSum;
+	int Thishead = 0, Thistail = 0;
+	int Maxhead = 0, Maxtail = 0;
+	int element;
+	for (int index = 1; index < length; index++) {
+		cin >> element;
+		if (element >= 0&&ThisSum>=0) {
+			ThisSum += element;
+			Thistail = index;
+		}
+		else if (element < 0 && ThisSum < 0 && ThisSum < element) {
+			ThisSum = element;
+			Thishead = index;
+			Thistail = Thishead;
+		}
+		else if (element >= 0&&ThisSum<0) {
+			ThisSum = element;
+			Thishead = index;
+			Thistail = Thishead;
 		}
 		else {
-			time += (stage[index] - position)*up;
-			position = stage[index];
+			ThisSum += element;
+			Thistail = index;
 		}
-		time += 5;
+		if (ThisSum > MaxSum) {
+			MaxSum = ThisSum;
+			Maxhead = Thishead;
+			Maxtail = Thistail;
+		}
 	}
-	return time;
+	cout << MaxSum << " " << Maxhead+1 << " " << Maxtail+1 << endl;
 }
