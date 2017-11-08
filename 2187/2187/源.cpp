@@ -23,7 +23,7 @@ int main() {
 			shop* shops = buildTable(shopsNumber);
 			double sum = buyRice(Money, shops, shopsNumber);
 			free(shops);
-			cout << setprecision(2) << std::fixed << sum;
+			cout << setprecision(2) << std::fixed << sum<<endl;
 		}
 	}
 	return 0;
