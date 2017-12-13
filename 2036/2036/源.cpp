@@ -3,6 +3,9 @@
 #include<stdlib.h>
 
 using namespace std;
+/*
+利用叉积的有向面积特性来计算多边形的面积
+*/
 
 typedef struct {
 	int x;
