@@ -37,7 +37,7 @@ int main() {
 				flag = S[index];
 			}
 		}
-		cout<< num-1 << endl << endl;
+		cout << num - 1 << endl;
 		Destroy(S);
 	}
 	return 0;
