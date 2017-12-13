@@ -31,12 +31,11 @@ int main() {
 			free(tower);
 		}
 	}
-
 	return 0;
 }
 
 node* buildTower(int height) {
-	int number = (1 + height)*height / 2;
+	int number = getLineBegin(height);
 	node* tower = (node*)malloc(number * sizeof(node));
 	for (int index = 0; index < number; index++) {
 		scanf_s("%d", &tower[index].value);
@@ -72,7 +71,7 @@ void CalSum(node* tower, int height){
 double getMaxSum(node* tower, int height) {
 	int LastBegin = getLineBegin(height - 1);
 	double sum = tower[LastBegin].sum;
-	for (int move = 0; move < height - 1; move++) {
+	for (int move = 0; move < height; move++) {
 		if (sum < tower[LastBegin + move].sum) {
 			sum = tower[LastBegin + move].sum;
 		}
