@@ -1,80 +1,60 @@
-#include<iostream>
 #include<stdio.h>
 #include<stdlib.h>
 
-#define flag -1
+#define scanf(A,B) scanf_s(A,B)
+/*
+ÊýËþÎÊÌâ
 
-using namespace std;
-
+*/
 typedef struct {
 	int value;
-	double sum;
-}node;
-int getLineBegin(int line) {
-	return (line*line + line) / 2;
-}
+	int sum;
+}Node;
 
-node* buildTower(int height);
-void CalSum(node* tower, int height);
-double getMaxSum(node* tower, int height);
+Node tower[101][105];
+
+inline int max(int a, int b) { return a > b ? a : b; }
+
+void InputTower(Node tower[][105], int Height);
+int CalSum(Node tower[][105], int Height);
 
 int main() {
 	int Cases;
-	while (cin >> Cases) {
-		for (int step = 0; step < Cases; step++) {
-			int height;
-			cin >> height;
-			node* tower = buildTower(height);
-			CalSum(tower,height);
-			double sum = getMaxSum(tower, height);
-			cout << sum << endl;
-			free(tower);
-		}
+	scanf("%d", &Cases);
+	while (Cases--) {
+		int Height;
+		scanf("%d", &Height);
+		InputTower(tower, Height);
+		printf("%d\n", CalSum(tower, Height));
 	}
 	return 0;
 }
 
-node* buildTower(int height) {
-	int number = getLineBegin(height);
-	node* tower = (node*)malloc(number * sizeof(node));
-	for (int index = 0; index < number; index++) {
-		scanf_s("%d", &tower[index].value);
-		tower[index].sum = flag;
-	}
-	return tower;
-}
-
-void CalSum(node* tower, int height){
-	//Base Case 
-	//height=0
-	tower[0].sum = tower->value;
-	//height=1
-	tower[1].sum = tower[0].sum + tower[1].value;
-	tower[2].sum = tower[0].sum + tower[2].value;
-	if (height <= 2) {
-		return;
-	}
-	for (int line = 2; line < height; line++) {
-		int preBegin = getLineBegin(line - 1);
-		for (int Position = 0; Position < line; Position++) {
-			for (int move = 0; move < 2; move++) {
-				int Present = preBegin + Position + line + move;
-				double t = tower[preBegin + Position].sum + tower[Present].value;
-				if (t > tower[Present].sum) {
-					tower[Present].sum = t;
-				}
-			}
+void InputTower(Node tower[][105], int Height) {
+	for (int y = 0; y < Height; y++) {
+		for (int x = 0; x <= y; x++) {
+			scanf("%d", &tower[y][x]);
+			tower[y][x].sum = INT_MIN;
 		}
 	}
 }
 
-double getMaxSum(node* tower, int height) {
-	int LastBegin = getLineBegin(height - 1);
-	double sum = tower[LastBegin].sum;
-	for (int move = 0; move < height; move++) {
-		if (sum < tower[LastBegin + move].sum) {
-			sum = tower[LastBegin + move].sum;
+int  CalSum(Node tower[][105], int Height) {
+	//Base Case
+	tower[0][0].sum = tower[0][0].value;
+//	tower[1][0].sum = tower[0][0].sum + tower[1][0].value;
+//	tower[1][1].sum = tower[0][0].sum + tower[1][1].value;
+	for (int y = 0; y < Height-1; y++) {
+		for (int x = 0; x <= y; x++) {
+			tower[y + 1][x].sum = max(tower[y+1][x].sum,
+									tower[y][x].sum + tower[y + 1][x].value);
+			tower[y + 1][x + 1].sum = max(tower[y + 1][x+1].sum, 
+									tower[y][x].sum + tower[y + 1][x+1].value);
 		}
 	}
-	return sum;
+	int t = tower[Height - 1][0].sum;
+	for (int i = 0; i < Height; i++) {
+		t = max(t, tower[Height - 1][i].sum);
+	}
+	return t;
 }
