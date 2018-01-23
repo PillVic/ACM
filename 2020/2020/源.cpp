@@ -1,24 +1,31 @@
 #include<iostream>
 #include<algorithm>
+#include<math.h>
+#include<stdlib.h>
 
 using namespace std;
 
+bool Judge(int a, int b) {
+	return abs(a) > abs(b);
+}
+
 int main() {
-	int m, n;
-	while (cin >> n >> m) {
-		if (n == m&&n == 0) {
+	int Number;
+	while (cin>>Number) {
+		if (Number == 0) {
 			continue;
 		}
-		int *arr = (int*)malloc((n+1) * sizeof(int));
-		for (int index = 0; index < n; index++) {
+		int *arr = (int*)malloc(Number * sizeof(int));
+		for (int index = 0; index < Number; index++) {
 			cin >> arr[index];
 		}
-		arr[n] = m;
-		sort(arr, arr+(n+1));
-		for (int index = 0; index < n; index++) {
-			cout << arr[index] << " ";
+		sort(arr, arr + Number, Judge);
+		for (int index = 0; index < Number; index++) {
+			cout << arr[index];
+			if (index + 1 != Number) {
+				cout << " ";
+			}
 		}
-		cout << arr[n]<<endl;
+		cout << endl;
 	}
-	return 0;
 }
