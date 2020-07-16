@@ -1,0 +1,9 @@
+#running program
+main
+data
+#data file
+input
+#program output
+*.out
+#script
+*.sh
