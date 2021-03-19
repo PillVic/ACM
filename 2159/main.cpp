@@ -17,7 +17,7 @@ int main(void){
             cin>>value>>cost;
             /*dp[i][v][p] 在考虑前i个物品情况下,容量为v的背包最多拿p个物品的最大价值
              * dp[i][v][p]=max(dp[i-1][v][p],dp[i-1][v-k*cost[i]][p-k]+k*value[i])
-             * 可以优化为dp[v][p]=max(dp[v][p],dp[v-cost[i][p-k]+value[i])
+             * 可以优化为dp[v][p]=max(dp[v][p],dp[v-cost[i][p-1]+value[i])
              * */
             for(int v=cost;v<=persist;v++){
                 for(int p=1;p<=killLimit;p++){
