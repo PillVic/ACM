@@ -140,5 +140,6 @@
 ### 最短路径
 
 - [x] 2544 Dijkstra 和Floyed 算法都可以
+- [ ] uva 558  bellman-ford
 - [ ] 2066 
 
