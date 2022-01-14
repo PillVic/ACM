@@ -1,7 +1,8 @@
 #running program
 main
 #data file
-data.txt output.txt
+data.txt 
+output.txt
 #program output
 *.out
 #script
