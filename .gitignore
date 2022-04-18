@@ -1,8 +1,4 @@
 #running program
-run
+prog
 #data file
 *.txt 
-#program output
-*.out
-#script
-*.sh
