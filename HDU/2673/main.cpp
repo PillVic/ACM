@@ -1,39 +1,32 @@
 #include<bits/stdc++.h>
 
 using namespace std;
+const char ENDLINE = '\n';
+/*
+ * 双针法板子题
+ * */
 
-bool judge(int a, int b){
-    return a>b;
-}
-int main(){
+int main(void){
     ios::sync_with_stdio(false);
-    int length;
-    while(cin>>length){
-	vector<int> v;
-	while(length--){
-	    int a;
-	    cin>>a;
-	    v.push_back(a);
-	}
-	sort(v.begin(), v.end(), judge);
-	length = v.size();
-	if(length ==1){
-	    cout<<v[0]<<endl;
-	    break;
-	}
-	if(length%2==1){
-	    length -=1;
-	}
-	for(int i=0;i< length/2;i++){
-	    if(i!=0){
-		cout<<" ";
-	    }
-	    cout<<v[i]<<" "<<v[v.size()-i-1];
-	}
-	if(v.size()!=length){
-	    cout<<" "<<v[(v.size()-1)/2];
-	}
-	cout<<endl;
+    int seqLen;
+    while( cin >> seqLen){
+        vector<int> v(seqLen);
+        for(int i=0; i<seqLen; i++){
+            cin >> v[i];
+        }
+        sort(v.begin(), v.end());
+        int p1 = v.size()-1, p2 = 0;
+        for(int i=0; i<seqLen;i++){
+            if(i%2 == 0){
+                cout << v[p1--];
+            }else{
+                cout << v[p2++];
+            }
+            if(i != seqLen-1){
+                cout << " ";
+            }
+        }
+        cout << ENDLINE;
     }
     return 0;
 }
