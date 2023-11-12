@@ -9,14 +9,14 @@ const char ENDLINE = '\n';
 
 vector<int> buildNext(const string& pattern){
     //next数组:使得 next[i]=k 表示 p[0]开头长度为前缀串与p[i]结尾的后缀串相同的最大长度为k
-    vector<int> next;
-    next.push_back(0);
+    vector<int> next = vector<int>(pattern.size(), 0);
+    next[0] = 0;
     int prefixPos = 0;
     int tailPos = 1;
     while(tailPos < pattern.size()){
         if(pattern[tailPos] == pattern[prefixPos]){
             //匹配成功, 串长度就是前缀下标+1(从0开始)
-            next.push_back(prefixPos+1);
+            next[tailPos] = prefixPos +1;
             tailPos++;
             prefixPos++;
         }else if(prefixPos != 0){
@@ -27,7 +27,7 @@ vector<int> buildNext(const string& pattern){
         }else{
             //如果开头就匹配失败，说明没有公共前后缀
             //长度就是0
-            next.push_back(0);
+            next[tailPos] = 0;
             tailPos += 1;
         }
     }
